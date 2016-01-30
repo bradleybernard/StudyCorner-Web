@@ -25,6 +25,4 @@ class ApiController extends Controller
 }
 
 
-Route::post('/api/user/sessions', 'SessionController@crossRefSession');
-
 
