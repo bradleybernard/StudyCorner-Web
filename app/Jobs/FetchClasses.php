@@ -51,26 +51,29 @@ class FetchClasses extends Job implements ShouldQueue
                'DNT'                => 1,
             ]
         ]);
+        $fuckBrad = 0;
+        do{
+            $login = $client->request('POST', 'https://ais-cs.ucsc.edu/psc/csprd/EMPLOYEE/PSFT_CSPRD/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?cmd=login&languageCd=ENG', [
+                'form_params' => [
+                    'timezoneOffset'    => 480,
+                    'Submit'            => 'Sign In',
+                    'userid'            => $this->user->cruz_id,
+                    'pwd'               => $this->user->password,
+                ]
+            ]);
 
-        $login = $client->request('POST', 'https://ais-cs.ucsc.edu/psc/csprd/EMPLOYEE/PSFT_CSPRD/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?cmd=login&languageCd=ENG', [
-            'form_params' => [
-                'timezoneOffset'    => 480,
-                'Submit'            => 'Sign In',
-                'userid'            => $this->user->cruz_id,
-                'pwd'               => $this->user->password,
-            ]
-        ]);
+            $html = new \Htmldom();
+            $html->load($login->getBody());
+            
+            $classes = [];
+            $rows = $html->find('table.PSLEVEL2GRIDWBO a.PSHYPERLINK');
 
-        $html = new \Htmldom();
-        $html->load($login->getBody());
-        
-        $classes = [];
-        $rows = $html->find('table.PSLEVEL2GRIDWBO a.PSHYPERLINK');
-
-        foreach($rows as $row) {
-            $classes[] = $row->plaintext;
+            foreach($rows as $row) {
+                $classes[] = $row->plaintext;
+            }
+            $fuckBrad = count($classes);
         }
-
+        while($fuckBrad==0);
         $class_name = [];
         $class_number = [];
         foreach($classes as $indice => $value) {

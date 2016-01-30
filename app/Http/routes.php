@@ -45,26 +45,30 @@ Route::get('/test',function (){
                'DNT'                => 1,
             ]
         ]);
-
-        $login = $client->request('POST', 'https://ais-cs.ucsc.edu/psc/csprd/EMPLOYEE/PSFT_CSPRD/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?cmd=login&languageCd=ENG', [
-            'form_params' => [
-                'timezoneOffset'    => 480,
-                'Submit'            => 'Sign In',
-                'userid'            => 'dthurau',
-                'pwd'               => 'D4z26a1m13'
-            ]
-        ]);
-
-        $html = new \Htmldom();
-        $html->load($login->getBody());
         
-        $classes = [];
-        $rows = $html->find('table.PSLEVEL2GRIDWBO a.PSHYPERLINK');
+        $fuckBrad = 0;
+        do{
+            $login = $client->request('POST', 'https://ais-cs.ucsc.edu/psc/csprd/EMPLOYEE/PSFT_CSPRD/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?cmd=login&languageCd=ENG', [
+                'form_params' => [
+                    'timezoneOffset'    => 480,
+                    'Submit'            => 'Sign In',
+                    'userid'            => 'dthurau',
+                    'pwd'               => 'D4z26a1m13',
+                ]
+            ]);
 
-        foreach($rows as $row) {
-            $classes[] = $row->plaintext;
+            $html = new \Htmldom();
+            $html->load($login->getBody());
+            
+            $classes = [];
+            $rows = $html->find('table.PSLEVEL2GRIDWBO a.PSHYPERLINK');
+
+            foreach($rows as $row) {
+                $classes[] = $row->plaintext;
+            }
+            $fuckBrad = count($classes);
         }
-
+        while($fuckBrad==0);
         $class_name = [];
         $class_number = [];
         foreach($classes as $indice => $value) {
