@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('cruz_id')->unique();
             $table->string('email')->unique();
             $table->string('password', 60);
+            $table->string('gold_password');
             $table->rememberToken();
             $table->timestamps();
         });
