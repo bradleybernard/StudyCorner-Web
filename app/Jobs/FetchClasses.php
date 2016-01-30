@@ -8,7 +8,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 use Vinkla\Pusher\Facades\Pusher as LaravelPusher;
-
+use App\SchoolClass;
+use App\UserClass;
 
 class FetchClasses extends Job implements ShouldQueue
 {
@@ -51,7 +52,7 @@ class FetchClasses extends Job implements ShouldQueue
                'DNT'                => 1,
             ]
         ]);
-        $fuckBrad = 0;
+        
         do{
             $login = $client->request('POST', 'https://ais-cs.ucsc.edu/psc/csprd/EMPLOYEE/PSFT_CSPRD/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?cmd=login&languageCd=ENG', [
                 'form_params' => [
@@ -71,9 +72,9 @@ class FetchClasses extends Job implements ShouldQueue
             foreach($rows as $row) {
                 $classes[] = $row->plaintext;
             }
-            $fuckBrad = count($classes);
+            
         }
-        while($fuckBrad==0);
+        while(count($classes)==0);
         $class_name = [];
         $class_number = [];
         foreach($classes as $indice => $value) {
