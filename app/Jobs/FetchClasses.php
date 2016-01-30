@@ -108,7 +108,7 @@ class FetchClasses extends Job implements ShouldQueue
             ]);
 
             $pusher_data[] = [
-                'class_name' => $class->name,
+                'class_name' => $class->class_name,
                 'class_id'   => $class->id,
                 'user_id'    => $this->user->id,
                 'priority'   => 1,
