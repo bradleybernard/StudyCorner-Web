@@ -21,9 +21,6 @@ class ApiController extends Controller
  
     }
 
-    public function testfcn(){
-    	$this->dispatch (new FetchClasses(User::find(1)));
-    }
 
 }
 
