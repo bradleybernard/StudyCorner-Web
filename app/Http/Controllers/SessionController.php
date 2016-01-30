@@ -15,10 +15,11 @@ class SessionController extends Controller
        $data = $request->all();
        //$user = User::where('id',$data->user_id);
        $sessions = StudySession::join('user_classes','user_classes.class_id', '=', 'study_sessions.class_id')
-       				->where('user_classes.user_id', $data->user_id)
-       				->where('study_session.status', '<', 2)->get();
+       				->where('user_classes.user_id', $data['user_id'])
+       				->where('study_sessions.status', '<', 2)->get();
        				//->where('study_session.pritority', '<', 1);
-       dd($sessions);
+       // dd($sessions);
+       dd($sessions->toArray());
        return response()->json(['success' =>'true', ]);
  
     }
