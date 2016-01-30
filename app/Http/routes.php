@@ -15,9 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::post('/api/user/login', 'LoginController@handleLogin');
+Route::post('/api/user/create', 'ApiController@postRegister');
+
+
+
+//>>>>>>> 5d3f7a7d0755a10ce052d55f4366b4dbe48a67fb
 
 /*
+
+
 |--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
