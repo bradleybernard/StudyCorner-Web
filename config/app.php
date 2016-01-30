@@ -148,6 +148,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Application Service Providers...
          */
@@ -156,6 +157,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         'Yangqi\Htmldom\HtmldomServiceProvider',
+        Vinkla\Pusher\PusherServiceProvider::class
 
     ],
 
@@ -203,6 +205,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Htmldom' => 'Yangqi\Htmldom\Htmldom',
+        'Pusher' => Vinkla\Pusher\Facades\Pusher::class,
 
     ],
 
