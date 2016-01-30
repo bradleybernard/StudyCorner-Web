@@ -56,8 +56,8 @@ class FetchClasses extends Job implements ShouldQueue
             'form_params' => [
                 'timezoneOffset'    => 480,
                 'Submit'            => 'Sign In',
-                'userid'            => $user->cruz_id,
-                'pwd'               => $user->password,
+                'userid'            => $this->user->cruz_id,
+                'pwd'               => $this->user->password,
             ]
         ]);
 
@@ -98,7 +98,7 @@ class FetchClasses extends Job implements ShouldQueue
                 ]);
             }
             UserClass::create([
-                'user_id' => $user->id,
+                'user_id' => $this->user->id,
                 'class_id' => $class->id,
                 'priority' => 1,
             ]);
@@ -106,11 +106,11 @@ class FetchClasses extends Job implements ShouldQueue
             $pusher_data[] = [
                 'class_name' => $class->name,
                 'class_id'   => $class->id,
-                'user_id'    => $user->id,
+                'user_id'    => $this->user->id,
                 'priority'   => 1,
             ];
         }
 
-        LaravelPusher::trigger('user' . $user->id, 'register', ['message' => $pusher_data]);       
+        LaravelPusher::trigger('user' . $this->user->id, 'register', ['message' => $pusher_data]);       
     }
 }
