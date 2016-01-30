@@ -52,7 +52,7 @@ class FetchClasses extends Job implements ShouldQueue
                'DNT'                => 1,
             ]
         ]);
-        
+        $counter = 0 ;
         do{
             $login = $client->request('POST', 'https://ais-cs.ucsc.edu/psc/csprd/EMPLOYEE/PSFT_CSPRD/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?cmd=login&languageCd=ENG', [
                 'form_params' => [
@@ -72,9 +72,9 @@ class FetchClasses extends Job implements ShouldQueue
             foreach($rows as $row) {
                 $classes[] = $row->plaintext;
             }
-            
+            $counter+=1;
         }
-        while(count($classes)==0);
+        while(count($classes)==0 && $counter != 10);
         $class_name = [];
         $class_number = [];
         foreach($classes as $indice => $value) {

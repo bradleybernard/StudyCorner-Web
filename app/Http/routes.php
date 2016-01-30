@@ -4,6 +4,7 @@ use App\User;
 use Vinkla\Pusher\Facades\Pusher as LaravelPusher;
 use App\UserClass;
 use App\SchoolClass;
+use App\StudySession;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::get('/index', 'LoginController@showDevs');
 Route::post('/api/user/login', 'LoginController@handleLogin');
 Route::post('/api/user/create', 'ApiController@postRegister');
 Route::post('/api/user/priority', 'PriorityController@setPriority');
-
+Route::post('/api/user/sessions','SessionController@crossRefSession');
 
 // Route::get('/test',function (){
 // 	$client = new \GuzzleHttp\Client([
