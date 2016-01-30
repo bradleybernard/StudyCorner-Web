@@ -1,7 +1,7 @@
 <?php
 
 use App\User;
-use Vinkla\Pusher\Facades\Pusher;
+use Vinkla\Pusher\Facades\Pusher as LaravelPusher;
 use App\UserClass;
 use App\SchoolClass;
 
@@ -79,7 +79,9 @@ Route::get('/test',function (){
 
         }
         //dd($class_name,$class_number,$classes);
+
         echo 'classes:' . count($class_name);
+        $pusher_data = [];
         foreach($class_name as $indice => $value) 
         {	
 
@@ -96,9 +98,19 @@ Route::get('/test',function (){
         		'class_id' => $class->id,
         		'priority' => 1,
         	]);
-        }
+        
 
-        //Pusher::trigger('user:' . $user->id, 'register-event', $classes);
+        	$pusher_data[] = [
+                 'class_name' => $class->name,
+             	 'class_id'   => $class->id,
+               	 'user_id'    => 1,
+               	 'priority'   => 1,
+          	];
+     	}
+
+    //dd($pusher_data);
+    LaravelPusher::trigger('user', 'register',['message' => $pusher_data]);
+    
 });
 
 

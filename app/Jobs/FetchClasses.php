@@ -7,7 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
-use Vinkla\Pusher\Facades\Pusher;
+use Vinkla\Pusher\Facades\Pusher as LaravelPusher;
 
 
 class FetchClasses extends Job implements ShouldQueue
@@ -85,7 +85,8 @@ class FetchClasses extends Job implements ShouldQueue
 
         }
 
-        echo 'classes:' . count($class_name);
+        //echo 'classes:' . count($class_name);
+        $pusher_data = [];
         foreach($class_name as $indice => $value) 
         {   
 
@@ -93,21 +94,23 @@ class FetchClasses extends Job implements ShouldQueue
             if(!$class){
                 $class = SchoolClass::create([
                     'class_name' => $class_name[$indice],
-                    'class_id' => $class_number[$indice]
+                    'class_id' => $class_number[$indice],
                 ]);
             }
             UserClass::create([
                 'user_id' => $user->id,
                 'class_id' => $class->id,
-                'priority' => 1
+                'priority' => 1,
             ]);
+
+            $pusher_data[] = [
+                'class_name' => $class->name,
+                'class_id'   => $class->id,
+                'user_id'    => $user->id,
+                'priority'   => 1,
+            ];
         }
 
-
-
-
-        Pusher::trigger('user:' . $user->id, 'register-event', $classes);
-
-       
+        LaravelPusher::trigger('user' . $user->id, 'register', ['message' => $pusher_data]);       
     }
 }

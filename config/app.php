@@ -205,7 +205,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Htmldom' => 'Yangqi\Htmldom\Htmldom',
-        'Pusher' => Vinkla\Pusher\Facades\Pusher::class,
+        'LaravelPusher' => Vinkla\Pusher\Facades\Pusher::class,
 
     ],
 

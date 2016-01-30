@@ -17,7 +17,7 @@ class ApiController extends Controller
        $user = User::create($data);
        
        $this->dispatch (new FetchClasses($user));
-       return response()->json(['success' =>'true']);
+       return response()->json(['success' =>'true', 'user_id' => $user->id]);
  
     }
 
