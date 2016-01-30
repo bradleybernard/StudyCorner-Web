@@ -20,10 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/index', 'LoginController@showDevs');
+
 //Route::get('/fuck', 'ApiController@testfcn');
 
 Route::post('/api/user/login', 'LoginController@handleLogin');
 Route::post('/api/user/create', 'ApiController@postRegister');
+Route::post('/api/user/priority', 'PriorityController@setPriority');
 
 
 // Route::get('/test',function (){
