@@ -7,6 +7,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
+use Vinkla\Pusher\Facades\Pusher;
+
 
 class FetchClasses extends Job implements ShouldQueue
 {
@@ -69,6 +71,43 @@ class FetchClasses extends Job implements ShouldQueue
             $classes[] = $row->plaintext;
         }
 
-        return $classes;
+        $class_name = [];
+        $class_number = [];
+        foreach($classes as $indice => $value) {
+            //DAN DID THIS
+            $findPosition = strpos($classes[$indice], '(' );
+            $subString = rtrim(substr($classes[$indice], 0, $findPosition - 1));
+            $class_name[$indice] =  $subString;
+
+            $findPosition = strpos($classes[$indice], '(' );
+            $subString = substr($classes[$indice], $findPosition + 1 , 5 );
+            $class_number[$indice] = $subString;
+
+        }
+
+        echo 'classes:' . count($class_name);
+        foreach($class_name as $indice => $value) 
+        {   
+
+            $class = SchoolClass::where('class_id',$class_number[$indice])->first();
+            if(!$class){
+                $class = SchoolClass::create([
+                    'class_name' => $class_name[$indice],
+                    'class_id' => $class_number[$indice]
+                ]);
+            }
+            UserClass::create([
+                'user_id' => $user->id,
+                'class_id' => $class->id,
+                'priority' => 1
+            ]);
+        }
+
+
+
+
+        Pusher::trigger('user:' . $user->id, 'register-event', $classes);
+
+       
     }
 }
