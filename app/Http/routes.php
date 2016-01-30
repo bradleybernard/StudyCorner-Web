@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/api/user/login', 'LoginController@handleLogin');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
