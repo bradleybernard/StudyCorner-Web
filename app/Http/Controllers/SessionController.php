@@ -90,6 +90,6 @@ class SessionController extends Controller
       UserSessions::where('user_id', $info['user_id'])->where('session_id', $info['session_id'])->update(['status' => $info['status']]);
     }
       $user = User::find($info['user_id']);
-      return response()->json(['success'=>'true', 'cruz_id' => $user->id]);
+      return response()->json(['success'=>'true', 'cruz_id' => $user->cruz_id]);
     }
 }
