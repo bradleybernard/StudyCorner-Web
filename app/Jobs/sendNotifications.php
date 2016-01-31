@@ -34,11 +34,12 @@ class sendNotifications extends Job implements ShouldQueue
     {
         $columns = [
             'users.device_token', 'study_sessions.title', 'study_sessions.time_start', 'study_sessions.location',
-            'study_sessions.going_count', 'users.cruz_id'
+            'study_sessions.going_count', 'users.cruz_id', 'classes.class_name',
         ];
 
         $justPassed = StudySession::join('user_classes','user_classes.class_id', '=', 'study_sessions.class_id')
                         ->join('users','user_classes.user_id','=','users.id')
+                        ->join('classes', 'classes.user_id', '=', 'users.id')
                         ->where('user_classes.priority', '1')
                         ->where('study_sessions.id', $this->studySession->id)
                         ->select($columns)->get();
@@ -52,7 +53,7 @@ class sendNotifications extends Job implements ShouldQueue
 
         $readableTime = date('g:i A', strtotime($user->time_start));
 
-        $message = PushNotification::Message('There is a new ' . $user->title . ' session starting at ' . $readableTime . ' in ' . $user->location . '.');
+        $message = PushNotification::Message('There is a new ' . $user->class_name . ' session starting at ' . $readableTime . ' in ' . $user->location . '.');
 
 
         $collection = PushNotification::app('StudyCorner')
