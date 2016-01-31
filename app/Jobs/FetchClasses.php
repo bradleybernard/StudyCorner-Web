@@ -10,6 +10,7 @@ use App\User;
 use Vinkla\Pusher\Facades\Pusher as LaravelPusher;
 use App\SchoolClass;
 use App\UserClass;
+use Crypt;
 
 class FetchClasses extends Job implements ShouldQueue
 {
@@ -54,12 +55,14 @@ class FetchClasses extends Job implements ShouldQueue
         ]);
         $counter = 0 ;
         do{
+
+            $decrypted = Crypt::decrypt($this->user->password);
             $login = $client->request('POST', 'https://ais-cs.ucsc.edu/psc/csprd/EMPLOYEE/PSFT_CSPRD/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?cmd=login&languageCd=ENG', [
                 'form_params' => [
                     'timezoneOffset'    => 480,
                     'Submit'            => 'Sign In',
                     'userid'            => $this->user->cruz_id,
-                    'pwd'               => $this->user->password,
+                    'pwd'               => $decrypted,
                 ]
             ]);
 
