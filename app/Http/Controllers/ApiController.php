@@ -23,6 +23,24 @@ class ApiController extends Controller
  
     }
 
+    public function setToken(Request $request)
+    {
+
+    	$data = $request->all();
+    	$info = [
+    		'id'=>$data['id'],
+    		'device_token'=>$data['device_token']
+    	]; 
+    	$checkUser = User::where('id', "=", $info['id'])->first();
+    	if($checkUser->device_token != $info['device_token'])
+    	{
+    		$checkUser->device_token = $info['device_token'];
+    		$checkUser->save();
+    		return response()->json(['success' =>'true']);
+    	}else{
+    		return response()->json(['success' =>'true']);
+    	}
+    }
 
 }
 
