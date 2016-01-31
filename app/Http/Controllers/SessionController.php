@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\StudySession;
 use App\Jobs\sendNotifications;
+use App\UserSessions;
 
 class SessionController extends Controller
 {
