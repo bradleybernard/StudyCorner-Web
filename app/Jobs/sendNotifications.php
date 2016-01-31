@@ -33,7 +33,6 @@ class sendNotifications extends Job implements ShouldQueue
     {
         $sessions = StudySession::join('user_classes','user_classes.class_id', '=', $study_sessions->class_id')
                         ->where('users_classes.user_id', 'user.id')
-
                         ->where('user_classes.priority', '=', 1)->get();
 
     }
