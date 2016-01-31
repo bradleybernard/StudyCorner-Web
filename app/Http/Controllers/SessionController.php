@@ -19,8 +19,22 @@ class SessionController extends Controller
        				->where('study_sessions.status', '<', 2)->get();
        				//->where('study_session.pritority', '<', 1);
        // dd($sessions);
-       dd($sessions->toArray());
-       return response()->json(['success' =>'true', ]);
- 
+
+      $going = StudySession::join('user_sessions', 'study_sessions', '=', ' ')
+       //dd($sessions->toArray());
+       return response()->json([
+          'success' =>'true', 
+          'title' => $sessions->title,
+          'class_id' => $sessions->class_id,
+          'location' => $sessions->location,
+          'owner_id' => $sessions->owner_id,
+          'latitude' => $sessions->latitude,
+          'longitude' =>$sessions->longitude,
+          'details' =>$sessions->details,
+          'time_start' =>$sessions->time_start,
+          'time_end'=>$sessions->time_end,
+          'status'=>$sessions->status
+          ]);
     }
+
 }
