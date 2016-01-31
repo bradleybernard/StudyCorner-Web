@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     	$faker = Faker::create();
     	foreach (range(1,10) as $index) {
 	        DB::table('study_sessions')->insert([
-	            'title' => $faker->word,
+	            'title' => $faker->sentence($nbWords = 2, $variableNbWords = true),
 	            'class_id' => $faker->randomDigit,
 	            'location' => $faker->word,
 	            'owner_id' => $faker->randomDigit,
