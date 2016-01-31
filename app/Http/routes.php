@@ -31,6 +31,9 @@ Route::post('/api/user/createSession', 'SessionController@createSession');
 Route::post('api/user/sessions/{id}', 'SessionController@giveUsers');
 Route::post('api/user/session/changeStatus', 'SessionController@changeStatus');
 Route::post('api/user/session/setToken', 'ApiController@setToken');
+Route::post('api/user/session/checkClass', 'SessionController@checkClass');
+
+
 /*
 
 

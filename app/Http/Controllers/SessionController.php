@@ -9,6 +9,7 @@ use App\User;
 use App\StudySession;
 use App\Jobs\sendNotifications;
 use App\UserSessions;
+use App\SchoolClass;
 
 class SessionController extends Controller
 {
@@ -41,7 +42,7 @@ class SessionController extends Controller
         'longitude' => $data['longitude'],
         'details' => $data['details'],
         'time_start' => $data['time_start'],
-        'time_end' => $data['time_end'],
+        'time_end' => $data[null],
         'status' => $data['status'],
         'created_at' => $data['created_at'],
         'updated_at' => $data['updated_at']
@@ -96,5 +97,15 @@ class SessionController extends Controller
       }
       $user = User::find($info['user_id']);
       return response()->json(['success'=>'true', 'cruz_id' => $user->cruz_id]);
+    }
+
+    public function checkClass(Request $request)
+    {
+      //given user_id for user_classes
+      $data = $request->all();
+      $classes = SchoolClass::join('user_classes', 'user_classes.class_id', '=', 'classes.id')
+                              ->where('user_classes.user_id', '=', $data['user_id'])->get();
+      return response()->json(['sucess'=>'true','classes' => $classes]);
+
     }
 }
