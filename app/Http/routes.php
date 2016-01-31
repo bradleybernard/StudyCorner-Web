@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 Route::get('/index', 'LoginController@showDevs');
 
+Route::get('/test', 'SessionController@fireTest');
+
 
 
 Route::post('/api/user/login', 'LoginController@handleLogin');

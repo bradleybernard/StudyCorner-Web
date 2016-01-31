@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 	            'location' => $faker->city,
 	            'created_at' => $faker->dateTimeThisYear($max = 'now'),
 	            'updated_at' => $faker->dateTimeThisYear($max = 'now'),
-	            'going_count' => $faker->numberBetween($min = 0, $max = 100);
+	            'going_count' => $faker->numberBetween($min = 0, $max = 100)
 	        ]);
         }
     }

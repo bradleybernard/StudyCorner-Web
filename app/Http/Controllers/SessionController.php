@@ -7,9 +7,16 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\StudySession;
+use App\Jobs\sendNotifications;
 
 class SessionController extends Controller
 {
+   public function fireTest() 
+   {
+      $this->dispatch(new sendNotifications(StudySession::find(4)));
+      return 'done';
+   }
+
    public function crossRefSession(Request $request)
    {
        $data = $request->all();
@@ -40,7 +47,7 @@ class SessionController extends Controller
       ];
 
       $session = StudySession::create($info);
-
+      $this->dispatch (new sendNotifications($session));
     	return response()->json(['success'=>'true']);
     }
 

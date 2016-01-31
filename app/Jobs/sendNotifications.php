@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\StudySession;
 use App\UserClass;
 use App\User;
+use PushNotification;
 
 class sendNotifications extends Job implements ShouldQueue
 {
@@ -21,7 +22,7 @@ class sendNotifications extends Job implements ShouldQueue
      */
     public function __construct(StudySession $studySession)
     {
-        $this->studySession = $studySession 
+        $this->studySession = $studySession;
     }
 
     /**
@@ -31,9 +32,30 @@ class sendNotifications extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $sessions = StudySession::join('user_classes','user_classes.class_id', '=', $study_sessions->class_id')
-                        ->where('users_classes.user_id', 'user.id')
-                        ->where('user_classes.priority', '=', 1)->get();
+        $columns = [
+            'users.device_token', 'study_sessions.title', 'study_sessions.time_start', 'study_sessions.location',
+            'study_sessions.going_count', 'users.cruz_id'
+        ];
 
+        $justPassed = StudySession::join('user_classes','user_classes.class_id', '=', 'study_sessions.class_id')
+                        ->join('users','user_classes.user_id','=','users.id')
+                        ->where('user_classes.priority', '1')
+                        ->where('study_sessions.id', $this->studySession->id)
+                        ->select($columns)->get();
+
+        $devs = [];
+
+        foreach($justPassed as $user) {
+            $devs[] = PushNotification::Device($user->device_token);
+        }
+
+        $readableTime = date('g:i A', strtotime($user->time_start));
+
+        $message = PushNotification::Message('There is a new ' . $user->title . ' session starting at ' . $readableTime . ' in ' . $user->location . '.');
+
+
+        $collection = PushNotification::app('StudyCorner')
+            ->to(PushNotification::DeviceCollection($devs))
+            ->send($message);
     }
 }
