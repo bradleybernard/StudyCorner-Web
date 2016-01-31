@@ -44,32 +44,11 @@ class SessionController extends Controller
     	return response()->json(['success'=>'true']);
     }
 
-    public function displaySession(Request $request)
+    public function giveUsers($id)
     {
-    	$data = $request->all();
-    	$session = StudySession::where('study_sessions.id',$data->session_id);
-    	// $passback[] = [
-    	// 	'title'=>$session->title,
-    	// 	'class_id'=>$session->class_id,
-    	// 	'location'=>$session->location,
-    	// 	'owner_id'=>$session->owner_id,
-    	// 	'longitude'=>$session->longitude,
-    	// 	'latitude'=>$session->latitude,
-    	// 	'details'=>$session->details,
-    	// 	'time_start'=>$session->time_start,
-    	// 	'time_end'=>$session->time_end,
-    	// 	'status'=>$session->status
-    	// ];
+      $user = User::join('user_sessions','user_sessions.session_id', '=', $id)
+                  ->where('status_id', '=', 1);
 
-    	//return response()->json(['success'=>'true','slected_session'=>$session]);
-    	return response()->json(['success'=>'true','slected_session'=>$session]);
-
-
-
-
-
-
+        return response()->json($user);
     }
-
-
 }

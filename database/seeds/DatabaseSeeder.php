@@ -32,6 +32,24 @@ class DatabaseSeeder extends Seeder
 	            'updated_at' => $faker->dateTime
 	        ]);
         }
+    	foreach (range(1,10) as $index) {
+	        DB::table('user_sessions')->insert([
+	            'user_id' => $faker->name,
+	            'session_id' => $faker->randomDigit,
+	            'location' => $faker->name,
+	            'owner_id' => $faker->randomDigit,
+	            'latitude' => $faker->randomFloat,
+	            'longitude' => $faker->randomFloat,
+	            'details' => $faker->name,
+	            'time_start' => $faker->dateTime,
+	            'time_end' => $faker->dateTime,
+	            'status' => $faker->randomDigit,
+	            'class_id' => $faker->randomDigit,
+	            'location' => $faker->name,
+	            'created_at' => $faker->dateTime,
+	            'updated_at' => $faker->dateTime
+	        ]);
+        }
     }
 }
 
