@@ -53,22 +53,22 @@ class SessionController extends Controller
 
     public function giveUsers(Request $request, $id)
     {
-      // only user_id. giving study_sessions.id in $id
       $signedUp = false;
       $data = $request->all();
-      $user = User::join('user_sessions','user_sessions.session_id', '=', $id])
-                  ->where('user_sessions.status', '=', 1);
+      $user = User::join('user_sessions', 'user_sessions.user_id', '=', 'users.id')->
+                  where('user_sessions.session_id', '=', $id)
+                  ->where('user_sessions.status', '=', 1)->get();
 
 
       foreach ($user as $key) 
       {
-        if($key->id == $data['id'])
+        if($key->user_id == $data['user_id'])
         {
-          $signedUp = true;
+           $signedUp = true;
         }
       }
 
-        return response()->json(['success' => 'true', 'userList' => $user, 'signedUp' => $signedUp]);
+        return response()->json(['success' => 'true', 'users' => $user, 'signed_up' => $signedUp]);
     }
 
     public function addingUsers(Request $request)
