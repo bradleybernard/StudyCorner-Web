@@ -45,7 +45,8 @@ class sendNotifications extends Job implements ShouldQueue
 
         $devs = [];
 
-        foreach($justPassed as $user) {
+        foreach($justPassed as $user) 
+        {
             $devs[] = PushNotification::Device($user->device_token);
         }
 

@@ -12,7 +12,8 @@ use Crypt;
 
 class ApiController extends Controller
 {
-    public function postRegister(Request $request){
+    public function postRegister(Request $request)
+    {
        $data = $request->all();
        $data['password'] = bcrypt($data['password']);
        $data['gold_password'] = Crypt::encrypt($data['gold_password']);
@@ -25,12 +26,12 @@ class ApiController extends Controller
 
     public function setToken(Request $request)
     {
-
     	$data = $request->all();
     	$info = [
     		'id'=>$data['id'],
     		'device_token'=>$data['device_token']
     	]; 
+
     	$checkUser = User::where('id', "=", $info['id'])->first();
     	if($checkUser->device_token != $info['device_token'])
     	{
@@ -41,7 +42,6 @@ class ApiController extends Controller
     		return response()->json(['success' =>'true']);
     	}
     }
-
 }
 
 

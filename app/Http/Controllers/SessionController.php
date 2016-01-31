@@ -60,7 +60,6 @@ class SessionController extends Controller
                   where('user_sessions.session_id', '=', $id)
                   ->where('user_sessions.status', '=', 1)->get();
 
-
       foreach ($user as $key) 
       {
         if($key->user_id == $data['user_id'])
@@ -84,12 +83,5 @@ class SessionController extends Controller
 
       $userSession = UserSessions::create($info);
       return response()->json(['success'=>'true']);
-
-
-
-
     }
-
-
-
 }
