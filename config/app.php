@@ -149,6 +149,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
 
+
         /*
          * Application Service Providers...
          */
@@ -157,6 +158,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         'Yangqi\Htmldom\HtmldomServiceProvider',
+        'Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider',
         Vinkla\Pusher\PusherServiceProvider::class
 
     ],
@@ -206,6 +208,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Htmldom' => 'Yangqi\Htmldom\Htmldom',
         'LaravelPusher' => Vinkla\Pusher\Facades\Pusher::class,
+        'PushNotification' => 'Davibennun\LaravelPushNotification\Facades\PushNotification',
 
     ],
 

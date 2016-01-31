@@ -65,8 +65,6 @@ class SessionController extends Controller
     {
 
       $data = $request->all();
-      $user_id = $data['user_id'];
-      $session_id = $data['session_id'];
       $info = [
       'user_id' => $data['user_id'],
       'session_id' => $data['session_id'],
