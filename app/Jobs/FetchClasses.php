@@ -56,7 +56,7 @@ class FetchClasses extends Job implements ShouldQueue
         $counter = 0 ;
         do{
 
-            $decrypted = Crypt::decrypt($this->user->password);
+            $decrypted = Crypt::decrypt($this->user->gold_password);
             $login = $client->request('POST', 'https://ais-cs.ucsc.edu/psc/csprd/EMPLOYEE/PSFT_CSPRD/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?cmd=login&languageCd=ENG', [
                 'form_params' => [
                     'timezoneOffset'    => 480,
