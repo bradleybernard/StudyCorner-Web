@@ -47,10 +47,10 @@ class PriorityController extends Controller
         //     ]
         // ]
 
-        for($i = 0; $i < count($data); $i + 3) {
-            UserClass::where('class_id', $data[$i]['class_id'])->where('user_id', $data[$i + 1]['user_id'])->update([
-                'priority' => $data[$i + 2]['priority']
-            ]);
+        for($i = 0; $i < count($data); $i += 3) {
+            UserClass::where('class_id', $data[$i]['class_id'])
+            ->where('user_id', $data[$i + 1]['user_id'])
+            ->update( ['priority' => $data[$i + 2]['priority'] ]);
         }
 
     	// foreach($data as $key => $ele)
