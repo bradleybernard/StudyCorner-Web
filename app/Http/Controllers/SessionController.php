@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -26,8 +25,36 @@ class SessionController extends Controller
     {
     	$data = $request->all();
     	$session = StudySession::create($data);
-    	$session->owner_id = $data->user_id;
-    	return response()->json('success'=>'true');
+    	//$session->owner_id = $data->user_id;
+    	return response()->json(['success'=>'true']);
     }
+
+    public function displaySession(Request $request)
+    {
+    	$data = $request->all();
+    	$session = StudySession::where('study_sessions.id',$data->session_id);
+    	// $passback[] = [
+    	// 	'title'=>$session->title,
+    	// 	'class_id'=>$session->class_id,
+    	// 	'location'=>$session->location,
+    	// 	'owner_id'=>$session->owner_id,
+    	// 	'longitude'=>$session->longitude,
+    	// 	'latitude'=>$session->latitude,
+    	// 	'details'=>$session->details,
+    	// 	'time_start'=>$session->time_start,
+    	// 	'time_end'=>$session->time_end,
+    	// 	'status'=>$session->status
+    	// ];
+
+    	//return response()->json(['success'=>'true','slected_session'=>$session]);
+    	return response()->json(['success'=>'true','slected_session'=>$session]);
+
+
+
+
+
+
+    }
+
 
 }
