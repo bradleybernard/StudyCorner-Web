@@ -21,9 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', 'LoginController@showDevs');
-
-Route::get('/test', 'SessionController@fireTest');
+//Route::get('/test', 'SessionController@fireTest');
 
 Route::post('/api/user/login', 'LoginController@handleLogin');
 Route::post('/api/user/create', 'ApiController@postRegister');
