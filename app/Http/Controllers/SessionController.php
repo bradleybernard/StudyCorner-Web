@@ -60,4 +60,27 @@ class SessionController extends Controller
 
         return response()->json(['success' => 'true', $user, 'signedUp' => $signedUp]);
     }
+
+    public function addingUsers(Request $request)
+    {
+
+      $data = $request->all();
+      $user_id = $data['user_id'];
+      $session_id = $data['session_id'];
+      $info = [
+      'user_id' => $data['user_id'],
+      'session_id' => $data['session_id'],
+      'status' => $data['status']
+      ];
+
+      $userSession = UserSessions::create($info);
+      return response()->json(['success'=>'true']);
+
+
+
+
+    }
+
+
+
 }
