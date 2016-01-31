@@ -105,7 +105,7 @@ class SessionController extends Controller
       $data = $request->all();
       $classes = SchoolClass::join('user_classes', 'user_classes.class_id', '=', 'classes.id')
                               ->where('user_classes.user_id', '=', $data['user_id'])->get();
-      return response()->json(['sucess'=>'true','classes' => $classes]);
+      return response()->json(['sucess'=> true, 'classes' => $classes]);
 
     }
 }
