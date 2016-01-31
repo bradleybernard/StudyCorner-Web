@@ -16,7 +16,7 @@ class SessionController extends Controller
 
        $sessions = StudySession::join('user_classes','user_classes.class_id', '=', 'study_sessions.class_id')
        				    ->where('user_classes.user_id', $data['user_id'])
-                  		->where('study_sessions.status', '<', 2)->get();
+                  		->where('study_sessions.status', '<', 2)->orderBy('study_sessions.start_time','desc')->get();
 
        return response()->json($sessions);
     }
