@@ -80,15 +80,20 @@ class SessionController extends Controller
       'session_id' => $data['session_id'],
       'status' => $data['status']
       ];
-
-    if (UserSessions::where('user_id', $info['user_id'])->where('session_id', $info['session_id'])->count() == 0)
-    {
-      $userSession = UserSessions::create($info);
-    }
-    else
-    {
-      UserSessions::where('user_id', $info['user_id'])->where('session_id', $info['session_id'])->update(['status' => $info['status']]);
-    }
+      if (UserSessions::where('user_id', $info['user_id'])->where('session_id', $info['session_id'])->count() == 0)
+      {
+        $userSession = UserSessions::create($info);
+        $changeCount = StudySession::where('id', '=', $info['session_id'])->increment('going_count');
+      }
+      else
+      {
+        if($info['status']==1){
+          $changeCount = StudySession::where('id','=',$info['session_id'])->increment('going_count');
+        }else{
+          $changeCount = StudySession::where('id','=',$info['session_id'])->decrement('going_count');
+        }
+         UserSessions::where('user_id', $info['user_id'])->where('session_id', $info['session_id'])->update(['status' => $info['status']]);
+      }
       $user = User::find($info['user_id']);
       return response()->json(['success'=>'true', 'cruz_id' => $user->cruz_id]);
     }
