@@ -15,10 +15,15 @@ class LoginController extends Controller
     {
     	$data = $request->all();
 
-		if (Auth::attempt(['email' => $data->email, 'password' => $data->password], false)) {
-		    $user = Auth::user();
-		}
+		if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) 
+		{
+            $user = Auth::user();
+		    return response()->json(['success' => 'true']);
+		}else {
 
+			return response()->json(['sucess'=> 'false']);
+		}
+		
     }
 
 }
