@@ -18,8 +18,8 @@ class CreateStudySessionTable extends Migration
             $table->integer('class_id');
             $table->string('location');
             $table->integer('owner_id');
-            $table->double('latitude', 10,10);
-            $table->double('longitude', 10,10);
+            $table->double('latitude', 20,10);
+            $table->double('longitude', 20,10);
             $table->string('details', 150);
             $table->timestamp('time_start');
             $table->timestamp('time_end')->nullable();

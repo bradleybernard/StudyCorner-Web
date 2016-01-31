@@ -16,18 +16,17 @@ class DatabaseSeeder extends Seeder
     	$faker = Faker::create();
     	foreach (range(1,10) as $index) {
 	        DB::table('study_sessions')->insert([
-	            'title' => $faker->name,
+	            'title' => $faker->word,
 	            'class_id' => $faker->randomDigit,
-	            'location' => $faker->name,
+	            'location' => $faker->word,
 	            'owner_id' => $faker->randomDigit,
-	            'latitude' => $faker->randomFloat,
-	            'longitude' => $faker->randomFloat,
-	            'details' => $faker->name,
+	            'latitude' => $faker->latitude,
+	            'longitude' => $faker->longitude,
+	            'details' => $faker->text($maxNbChars = 20),
 	            'time_start' => $faker->dateTime,
 	            'time_end' => $faker->dateTime,
-	            'status' => $faker->randomDigit,
-	            'class_id' => $faker->randomDigit,
-	            'location' => $faker->name,
+	            'status' => $faker->numberBetween($min = 0, $max = 1),
+	            'location' => $faker->city,
 	            'created_at' => $faker->dateTime,
 	            'updated_at' => $faker->dateTime
 	        ]);
