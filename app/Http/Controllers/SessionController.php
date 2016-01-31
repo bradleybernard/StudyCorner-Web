@@ -23,9 +23,24 @@ class SessionController extends Controller
 
     public function createSession(Request $request)
     {
-    	$data = $request->all();
-    	$session = StudySession::create($data);
-    	//$session->owner_id = $data->user_id;
+      $data = $request->all();
+      $info = [
+        'owner_id' => $data['user_id'],
+        'title' => $data['title'],
+        'class_id' => $data['class_id'],
+        'location' => $data['location'],
+        'latitude' => $data['latitude'],
+        'longitude' => $data['longitude'],
+        'details' => $data['details'],
+        'time_start' => $data['time_start'],
+        'time_end' => $data['time_end'],
+        'status' => $data['status'],
+        'created_at' => $data['created_at'],
+        'updated_at' => $data['updated_at']
+      ];
+
+      $session = StudySession::create($info);
+
     	return response()->json(['success'=>'true']);
     }
 
