@@ -34,8 +34,8 @@ class SessionController extends Controller
     {
       $data = $request->all();
 
-      $data['owner_id'] = $data['user_id'];
-      unset($data['user_id']);
+      // $data['owner_id'] = $data['user_id'];
+      // unset($data['user_id']);
 
       // $info = [
       //   'owner_id' => $data['user_id'],
