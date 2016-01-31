@@ -33,22 +33,26 @@ class SessionController extends Controller
     public function createSession(Request $request)
     {
       $data = $request->all();
-      $info = [
-        'owner_id' => $data['user_id'],
-        'title' => $data['title'],
-        'class_id' => $data['class_id'],
-        'location' => $data['location'],
-        'latitude' => $data['latitude'],
-        'longitude' => $data['longitude'],
-        'details' => $data['details'],
-        'time_start' => $data['time_start'],
-        'time_end' => $data[null],
-        'status' => $data['status'],
-        'created_at' => $data['created_at'],
-        'updated_at' => $data['updated_at']
-      ];
 
-      $session = StudySession::create($info);
+      $data['owner_id'] = $data['user_id'];
+      unset($data['user_id']);
+
+      // $info = [
+      //   'owner_id' => $data['user_id'],
+      //   'title' => $data['title'],
+      //   'class_id' => $data['class_id'],
+      //   'location' => $data['location'],
+      //   'latitude' => $data['latitude'],
+      //   'longitude' => $data['longitude'],
+      //   'details' => $data['details'],
+      //   'time_start' => $data['time_start'],
+      //   'time_end' => $data[null],
+      //   'status' => $data['status'],
+      //   'created_at' => $data['created_at'],
+      //   'updated_at' => $data['updated_at']
+      // ];
+
+      $session = StudySession::create($data);
       $this->dispatch (new sendNotifications($session));
     	return response()->json(['success'=>'true']);
     }
