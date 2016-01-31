@@ -2,11 +2,11 @@
 
 return array(
 
-    'appNameIOS'     => array(
-        'environment' =>'development',
-        'certificate' =>'/path/to/certificate.pem',
-        'passPhrase'  =>'password',
-        'service'     =>'apns'
+    'StudyCorner'     => array(
+        'environment' => 'development',
+        'certificate' => base_path() . env('CERT_PATH'),
+        'passPhrase'  => env('CERT_PASS'),
+        'service'     => 'apns'
     ),
     'appNameAndroid' => array(
         'environment' =>'production',
