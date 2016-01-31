@@ -71,17 +71,25 @@ class SessionController extends Controller
         return response()->json(['success' => 'true', 'users' => $user, 'signed_up' => $signedUp]);
     }
 
-    public function addingUsers(Request $request)
-    {
-
+    public function changeStatus(Request $request)
+    { 
+      //user_id is autoincrement
       $data = $request->all();
       $info = [
-      'user_id' => $data['user_id'],
+      'user_id' => $data['user_id'], 
       'session_id' => $data['session_id'],
       'status' => $data['status']
       ];
 
+    if (UserSessions::where('user_id', $info['user_id'])->where('session_id', $info['session_id'])->count() == 0)
+    {
       $userSession = UserSessions::create($info);
-      return response()->json(['success'=>'true']);
+    }
+    else
+    {
+      UserSessions::where('user_id', $info['user_id'])->where('session_id', $info['session_id'])->update(['status' => !$info['status']]);
+    }
+      $user = User::find($info['user_id']);
+      return response()->json(['success'=>'true', 'cruz_id' => $user->id]);
     }
 }

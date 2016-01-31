@@ -29,7 +29,7 @@ Route::post('/api/user/priority', 'PriorityController@setPriority');
 Route::post('/api/user/sessions', 'SessionController@crossRefSession');
 Route::post('/api/user/createSession', 'SessionController@createSession');
 Route::post('api/user/sessions/{id}', 'SessionController@giveUsers');
-Route::post('api/user/session/addUsers', 'SessionController@addingUsers');
+Route::post('api/user/session/changeStatus', 'SessionController@changeStatus');
 Route::post('api/user/session/setToken', 'ApiController@setToken');
 /*
 
