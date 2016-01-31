@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
 	            'latitude' => $faker->latitude,
 	            'longitude' => $faker->longitude,
 	            'details' => $faker->text($maxNbChars = 20),
-	            'time_start' => $faker->dateTime,
-	            'time_end' => $faker->dateTime,
+	            'time_start' => $faker->dateTimeThisYear($max = 'now'),
+	            'time_end' => $faker->dateTimeThisYear($max = 'now'),
 	            'status' => $faker->numberBetween($min = 0, $max = 1),
 	            'location' => $faker->city,
-	            'created_at' => $faker->dateTime,
-	            'updated_at' => $faker->dateTime
+	            'created_at' => $faker->dateTimeThisYear($max = 'now'),
+	            'updated_at' => $faker->dateTimeThisYear($max = 'now')
 	        ]);
         }
     }
