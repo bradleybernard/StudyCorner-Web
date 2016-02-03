@@ -38,9 +38,9 @@ return [
     'connections' => [
 
         'main' => [
-            'auth_key' => 'afb83e6e44409f2b1b3b',
-            'secret' => '02db46fd84113dbcf3c9',
-            'app_id' => '174878',
+            'auth_key' => env('PUSHER_AUTH_KEY'),
+            'secret' => env('PUSHER_SECRET'),
+            'app_id' => env('PUSHER_APP_ID'),
             'options' => [],
             'host' => null,
             'port' => null,
